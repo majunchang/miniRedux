@@ -20,27 +20,60 @@ import PropTypes from 'prop-types'
 //     }
 //   }
 // }
-export const connect = (mapStateToProps=state=>state,mapDispatchToProps={})=>{
+//  双箭头函数的写法
+export const connect = (mapStateToProps = state => state, mapDispatchToProps = {}) => (wrapComponent) => {
+    return class ConnectCompnent extends React.Component {
+        static contextTypes = {
+            store: PropTypes.object
+        }
+
+        constructor(props, context) {
+            super(props, context)
+            this.state = {
+                props: {}
+            }
+        }
+
+        componentDidMount() {
+            this.update()
+        }
+
+        update() {
+            //  context中  包含从provieder组件里面 传递的store
+            const {store} = this.context;
+            //  这个mapStateToProps 本身就是一个箭头函数
+            const stateProps = mapStateToProps(store.getState());
+
+        }
+
+        render() {
+            return <wrapComponent {...this.state.props}></wrapComponent>
+        }
+    }
+
 
 }
 
 export class Provider extends React.Component {
-   static childContextTypes = {
-      store: PropTypes.object
-   }
-  getChildContext () {
-    return {store: this.store}
-  }
-  constructor (props, context) {
-    super(props, context)
-    //  把外部传来的props中的store  挂载到this.store上面
-    this.store = props.store
-  }
-  render () {
-    // this.props.children 属性。它表示组件的所有子节点
-    // this.props.children 的值有三种可能：如果当前组件没有子节点，它就是 undefined ;
-    // 如果有一个子节点，数据类型是 object ；
-    // 如果有多个子节点，数据类型就是 array。
-    return this.props.children
-  }
+    static childContextTypes = {
+        store: PropTypes.object
+    }
+
+    getChildContext() {
+        return {store: this.store}
+    }
+
+    constructor(props, context) {
+        super(props, context)
+        //  把外部传来的props中的store  挂载到this.store上面
+        this.store = props.store
+    }
+
+    render() {
+        // this.props.children 属性。它表示组件的所有子节点
+        // this.props.children 的值有三种可能：如果当前组件没有子节点，它就是 undefined ;
+        // 如果有一个子节点，数据类型是 object ；
+        // 如果有多个子节点，数据类型就是 array。
+        return this.props.children
+    }
 }
