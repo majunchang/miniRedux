@@ -3,6 +3,8 @@ import { createStore } from './woniuRedux/woniuRedux'
 // 这就是reducer处理函数，参数是状态和新的action
 function counter (state = 0, action) {
   // let state = state||0
+  console.log(action)
+  console.log(state)
   switch (action.type) {
     case '加机关枪':
       return state + 1
