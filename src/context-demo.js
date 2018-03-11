@@ -2,52 +2,57 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class SideBar extends React.Component{
-  render(){
-    return (
-        <div>
-          <p>我是侧边栏</p>
-          <Nav></Nav>
-        </div>
-    )
-  }
+class SideBar extends React.Component {
+    render() {
+        return (
+            <div>
+                <p>我是侧边栏</p>
+                <Nav></Nav>
+            </div>
+        )
+    }
 }
 
-class Nav extends React.Component{
+class Nav extends React.Component {
 
-  static contextTypes={
-    user:PropTypes.string
-  }
-  render(){
-    console.log(this.context)
-    return (
-      <div>
-        <h1>xixi</h1>
-        {this.context.user}
-      </div>
-    )
-  }
+    static contextTypes = {
+        user: PropTypes.string
+    }
+
+    render() {
+        console.log(this.context)
+        return (
+            <div>
+                <h1>xixi</h1>
+                {this.context.user}
+            </div>
+        )
+    }
 }
+
 class Page extends React.Component {
 
-  static childContextTypes = {
-    user:PropTypes.string
-  }
-  constructor (props) {
-    super(props)
-    this.state = {user:'蜗牛'}
-  }
-  getChildContext(){
-    return this.state
-  }
-  render () {
-    return (
-      <div>
-        <p>我是{this.state.user}</p>
-        <SideBar></SideBar>
-      </div>
-    )
-  }
+    static childContextTypes = {
+        user: PropTypes.string
+    }
+
+    constructor(props) {
+        super(props)
+        this.state = {user: '蜗牛'}
+    }
+
+    getChildContext() {
+        return this.state
+    }
+
+    render() {
+        return (
+            <div>
+                <p>我是{this.state.user}</p>
+                <SideBar></SideBar>
+            </div>
+        )
+    }
 }
 
 export default Page

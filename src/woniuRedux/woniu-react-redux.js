@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {bindActionCreators} from './woniuRedux'
 //  context 是全局的 组件里声明  所有子元素可以直接获取
 //  connect 负责链接组件   将redux里的数据 放在组件的属性里
 // Provider  吧store放到context  所有的子元素 可以渠道store
@@ -21,8 +22,9 @@ import PropTypes from 'prop-types'
 //   }
 // }
 //  双箭头函数的写法
-export const connect = (mapStateToProps = state => state, mapDispatchToProps = {}) => (wrapComponent) => {
+export const connect = (mapStateToProps = state => state, mapDispatchToProps = {}) => (WrapComponent) => {
     return class ConnectCompnent extends React.Component {
+        //  这一步为了获取从外部传入的store
         static contextTypes = {
             store: PropTypes.object
         }
@@ -35,6 +37,9 @@ export const connect = (mapStateToProps = state => state, mapDispatchToProps = {
         }
 
         componentDidMount() {
+            // 当数据有所改动的时候 同样调用update方法
+            const {store} = this.context
+            store.subscribe(() => this.update())
             this.update()
         }
 
@@ -43,11 +48,29 @@ export const connect = (mapStateToProps = state => state, mapDispatchToProps = {
             const {store} = this.context;
             //  这个mapStateToProps 本身就是一个箭头函数
             const stateProps = mapStateToProps(store.getState());
+            /*
+                在解析dispatch的时候
+                1  方法不能直接给 需要dispatch 才会有效  直接执行 addGun() 毫无意义
+                  function addGun () {
+                    return { type: ADD_GUN }
+                  }
+                2 addGun = ()=> store.dispatch(addGun())  就是用dispatch把actioncreator包裹一层
+             */
+            const dispatchProps = bindActionCreators(mapDispatchToProps, store.dispatch)
 
+            // 调用setState方法 会触发render函数
+            this.setState({
+                props: {
+                    //  遇到同名的key值得时候  后面的会覆盖前面的 所以我们把 外部传入的 放在后面
+                    ...this.state.props,
+                    ...stateProps,
+                    ...dispatchProps
+                }
+            })
         }
 
         render() {
-            return <wrapComponent {...this.state.props}></wrapComponent>
+            return <WrapComponent {...this.state.props}></WrapComponent>
         }
     }
 

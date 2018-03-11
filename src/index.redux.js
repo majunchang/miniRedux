@@ -14,6 +14,7 @@ export function counter (state = 0, action) {
   }
 }
 export function addGun () {
+  console.log('majunchang');
   return { type: ADD_GUN }
 }
 export function removeGun () {

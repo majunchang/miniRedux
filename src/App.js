@@ -1,7 +1,8 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { connect } from './woniuRedux/woniu-react-redux'
+// import { connect } from 'react-redux'
 import { addGun, removeGun, addGunAsync } from './index.redux'
-import './01.learn.redux'
+// import './01.learn.redux'
 
 // 装饰器模式
 @connect(
@@ -16,6 +17,7 @@ import './01.learn.redux'
 // )
 class App extends React.Component {
   render () {
+      console.log(this.props);
     // num addGun，removeGun，addGunAsync都是connect给的，不需要手动dispatch
     return (
       <div>
