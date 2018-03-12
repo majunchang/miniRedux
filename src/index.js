@@ -7,7 +7,7 @@ import {Provider} from './woniuRedux/woniu-react-redux'
 import App from './App'
 //
 // import Page from './context-demo'
-import {createStore} from './woniuRedux/woniuRedux'
+import {createStore, applyMiddleware} from './woniuRedux/woniuRedux'
 import {counter} from './index.redux'
 
 // const store = createStore(counter, compose(
@@ -16,13 +16,13 @@ import {counter} from './index.redux'
 // ))
 
 //  测试woniu-react-redux的Provieder组件
-const store = createStore(counter)
+const store = createStore(counter, applyMiddleware(thunk))
 
 ReactDOM.render(
-    (
-        <Provider store={store}>
-            <App/>
-            {/* <Page /> */}
-        </Provider>
-    ),
-    document.getElementById('root'))
+  (
+    <Provider store={store}>
+      <App />
+      {/* <Page /> */}
+    </Provider>
+  ),
+  document.getElementById('root'))

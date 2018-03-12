@@ -6,8 +6,8 @@ import { addGun, removeGun, addGunAsync } from './index.redux'
 
 // 装饰器模式
 @connect(
-  state=>({ num: state}),
-  {addGun, removeGun, addGunAsync}
+  state => ({num: state}),
+  {addGun, removeGun, addGunAsync},
 )
 
 //  react链接redux的 原生模式
@@ -17,7 +17,7 @@ import { addGun, removeGun, addGunAsync } from './index.redux'
 // )
 class App extends React.Component {
   render () {
-      console.log(this.props);
+    console.log(this.props)
     // num addGun，removeGun，addGunAsync都是connect给的，不需要手动dispatch
     return (
       <div>
@@ -30,4 +30,5 @@ class App extends React.Component {
     )
   }
 }
+
 export default App

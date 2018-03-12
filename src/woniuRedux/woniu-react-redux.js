@@ -38,6 +38,8 @@ export const connect = (mapStateToProps = state => state, mapDispatchToProps = {
 
         componentDidMount() {
             // 当数据有所改动的时候 同样调用update方法
+            console.log(this.context)
+            console.log(this.context.store);
             const {store} = this.context
             store.subscribe(() => this.update())
             this.update()
