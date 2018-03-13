@@ -14,7 +14,6 @@ export function counter (state = 0, action) {
   }
 }
 export function addGun () {
-  console.log('majunchang')
   return { type: ADD_GUN }
 }
 export function removeGun () {
@@ -29,4 +28,8 @@ export function addGunAsync () {
       dispatch(addGun())
     }, 2000)
   }
+}
+
+export function addMore () {
+  return [{ type: ADD_GUN }, { type: ADD_GUN }, addGunAsync()]
 }

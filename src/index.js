@@ -1,7 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 // import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
+import thunk from './woniuRedux/woniu-redux-thunk'
+import arrThunk from './woniuRedux/woniu-redux-arr'
+
 // import { counter } from './index.redux'
 import {Provider} from './woniuRedux/woniu-react-redux'
 import App from './App'
@@ -16,7 +18,7 @@ import {counter} from './index.redux'
 // ))
 
 //  测试woniu-react-redux的Provieder组件
-const store = createStore(counter, applyMiddleware(thunk))
+const store = createStore(counter, applyMiddleware(thunk, arrThunk))
 
 ReactDOM.render(
   (

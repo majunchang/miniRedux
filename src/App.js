@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from './woniuRedux/woniu-react-redux'
 // import { connect } from 'react-redux'
-import { addGun, removeGun, addGunAsync } from './index.redux'
+import { addGun, removeGun, addGunAsync,addMore } from './index.redux'
 // import './01.learn.redux'
 
 // 装饰器模式
 @connect(
   state => ({num: state}),
-  {addGun, removeGun, addGunAsync},
+  {addGun, removeGun, addGunAsync,addMore},
 )
 
 //  react链接redux的 原生模式
@@ -26,6 +26,7 @@ class App extends React.Component {
         <button onClick={this.props.addGun}>申请武器</button>
         <button onClick={this.props.removeGun}>上交武器</button>
         <button onClick={this.props.addGunAsync}>拖两天再给</button>
+        <button onClick={this.props.addMore}>多个操作</button>
       </div>
     )
   }

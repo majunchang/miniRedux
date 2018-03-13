@@ -1,6 +1,7 @@
 export function createStore (reducer, enhancer) {
   if (enhancer) {
     return enhancer(createStore)(reducer)
+    //  return applymiddleware(thunk)(createStore)(reducer)
   }
   let currentState = {}
   let currentListeners = []
@@ -54,7 +55,7 @@ export function bindActionCreators (creators, dispatch) {
      */
 }
 //  中间件机制
-export function applyMiddleware (middlewares) {
+export function applyMiddleware (...middlewares) {
   //  这里的...args指的是reducer
   return createStore => (...args) => {
     //  const store = createStore(counter)
@@ -68,6 +69,7 @@ export function applyMiddleware (middlewares) {
     // dispatch = middleware(midApi)(store.dispatch)
     // dispatch = middware(midApi)(stroe.dispatch)(action)
     // 多个中间件的情况
+    console.log(middlewares)
     let middlewareChain = middlewares.map(middleware => middleware(midApi))
     dispatch = compose(...middlewareChain)(store.dispatch)
     return {
