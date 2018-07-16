@@ -19,6 +19,7 @@ import {counter} from './index.redux'
 
 //  测试woniu-react-redux的Provieder组件
 const store = createStore(counter, applyMiddleware(thunk, arrThunk))
+console.log('index中的store', store)
 
 ReactDOM.render(
   (

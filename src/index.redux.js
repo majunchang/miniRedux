@@ -1,6 +1,6 @@
 
-const ADD_GUN = '加机关枪'
-const REMOVE_GUN = '减机关枪'
+const ADD_GUN = '加AWM'
+const REMOVE_GUN = '减AWM'
 // 这就是reducer处理函数，参数是状态和新的action
 export function counter (state = 0, action) {
   // let state = state||0

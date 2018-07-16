@@ -11,6 +11,8 @@
 // }
 
 const thunk = ({dispatch, getState}) => next => action => {
+  console.log(next)
+  console.log(action)
   if (typeof action === 'function') {
     //  如上面所示
     return action(dispatch, getState)

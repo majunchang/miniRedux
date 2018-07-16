@@ -1,6 +1,8 @@
 export function createStore (reducer, enhancer) {
   if (enhancer) {
+    console.log('enhancer', enhancer)
     return enhancer(createStore)(reducer)
+
     //  return applymiddleware(thunk)(createStore)(reducer)
   }
   let currentState = {}
@@ -56,22 +58,25 @@ export function bindActionCreators (creators, dispatch) {
 }
 //  中间件机制
 export function applyMiddleware (...middlewares) {
-  //  这里的...args指的是reducer
   return createStore => (...args) => {
-    //  const store = createStore(counter)
     const store = createStore(...args)
     let dispatch = store.dispatch
     let midApi = {
       getState: store.getState,
-      dispatch: (...args) => dispatch(...args)
+      dispatch: (action) => dispatch(action)
     }
     //  单个中间件的情况
     // dispatch = middleware(midApi)(store.dispatch)
     // dispatch = middware(midApi)(stroe.dispatch)(action)
     // 多个中间件的情况
-    console.log(middlewares)
+    console.log(store) //  =>  store 就是一个对象  里面包含dispatch getState和subscribe等方法
+    console.log('middles', middlewares)
     let middlewareChain = middlewares.map(middleware => middleware(midApi))
+    console.log('查看middlewareschain是什么东西')
+    console.log(middlewareChain)
+    console.log(...middlewareChain)
     dispatch = compose(...middlewareChain)(store.dispatch)
+    console.log('查看dispatch', dispatch)
     return {
       ...store,
       dispatch
@@ -86,5 +91,18 @@ function compose (...fns) {
   if (fns.length === 1) {
     return fns[0]
   }
-  return fns.reduce((ret, item) => (...args) => ret(item(...args)))
+  // return fns.reduce((ret, item) => (...args) => ret(item(...args)))
+  return fns.reduce((ret, item) => (...args) => {
+    console.log('当有多个参数的时候')
+    //  ...args ==>> store.dispatch的这个方法
+    /*
+    //假设
+    middleChain = [a,b,c]
+    dispatch = compose(...middlewareChain)(store.dispatch) = compose(a,b,c)(store.dispatch)
+    // 那么这个函数在compose中 就被拆解为
+    dispatch = compose(a(b(c)))(store.dispatch)
+
+    */
+    return ret(item(...args))
+  })
 }

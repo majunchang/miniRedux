@@ -14,19 +14,26 @@ import { addGun, removeGun, addGunAsync,addMore } from './index.redux'
 // App = connect(
 //   state => ({num: state}),
 //   {addGun, removeGun, addGunAsync}
-// )
+// )(App)
 class App extends React.Component {
+  chifan(item,event){
+    console.log(item)
+    console.log(event)
+    console.log(event.target)
+    console.log(this.chifan)
+    console.log('我要吃饭了')
+  }
   render () {
     console.log(this.props)
     // num addGun，removeGun，addGunAsync都是connect给的，不需要手动dispatch
     return (
       <div>
-        <h1>我是用来测试miniredux的案例 </h1>
-        <h2>现在有机枪{this.props.num}把</h2>
-        <button onClick={this.props.addGun}>申请武器</button>
-        <button onClick={this.props.removeGun}>上交武器</button>
-        <button onClick={this.props.addGunAsync}>拖两天再给</button>
-        <button onClick={this.props.addMore}>多个操作</button>
+        <h1>测试miniredux </h1>
+        <h2>现在有AWM狙击步枪{this.props.num}把</h2>
+        <button onClick={this.props.addGun}>捡到空投</button>
+        <button onClick={this.props.removeGun}>丢掉AWM</button>
+        <button onClick={this.props.addGunAsync}>刷了毒圈再丢（测试异步的函数）</button>
+        <button onClick={this.props.addMore}>高级空投，两把AWM</button>
       </div>
     )
   }

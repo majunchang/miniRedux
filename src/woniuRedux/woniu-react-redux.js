@@ -58,6 +58,7 @@ export const connect = (mapStateToProps = state => state, mapDispatchToProps = {
                   }
                 2 addGun = ()=> store.dispatch(addGun())  就是用dispatch把actioncreator包裹一层
              */
+            console.log(mapDispatchToProps);
             const dispatchProps = bindActionCreators(mapDispatchToProps, store.dispatch)
 
             // 调用setState方法 会触发render函数
