@@ -10,7 +10,7 @@
 //   }
 // }
 
-const thunk = ({dispatch, getState}) => next => action => {
+const thunk = ({ dispatch, getState }) => next => action => {
   console.log(next)
   console.log(action)
   if (typeof action === 'function') {

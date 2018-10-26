@@ -1,4 +1,4 @@
-const ArrThunk = ({dispatch, getState}) => next => action => {
+const ArrThunk = ({ dispatch, getState }) => next => action => {
   if (Array.isArray(action)) {
     //  如上面所示
     return action.forEach(v => dispatch(v))

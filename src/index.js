@@ -5,12 +5,12 @@ import thunk from './woniuRedux/woniu-redux-thunk'
 import arrThunk from './woniuRedux/woniu-redux-arr'
 
 // import { counter } from './index.redux'
-import {Provider} from './woniuRedux/woniu-react-redux'
+import { Provider } from './woniuRedux/woniu-react-redux'
 import App from './App'
 //
 // import Page from './context-demo'
-import {createStore, applyMiddleware} from './woniuRedux/woniuRedux'
-import {counter} from './index.redux'
+import { createStore, applyMiddleware } from './woniuRedux/woniuRedux'
+import { counter } from './index.redux'
 
 // const store = createStore(counter, compose(
 //   applyMiddleware(thunk),
@@ -23,9 +23,9 @@ console.log('index中的store', store)
 
 ReactDOM.render(
   (
-    <Provider store={store}>
+    <Provider store={store} >
       <App />
-      {/* <Page /> */}
+      {/* <Page /> */ }
     </Provider>
   ),
   document.getElementById('root'))

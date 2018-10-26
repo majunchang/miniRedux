@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {bindActionCreators} from './woniuRedux'
+import { bindActionCreators } from './woniuRedux'
 //  context 是全局的 组件里声明  所有子元素可以直接获取
 //  connect 负责链接组件   将redux里的数据 放在组件的属性里
 // Provider  吧store放到context  所有的子元素 可以渠道store
@@ -23,6 +23,9 @@ import {bindActionCreators} from './woniuRedux'
 // }
 //  双箭头函数的写法
 export const connect = (mapStateToProps = state => state, mapDispatchToProps = {}) => (WrapComponent) => {
+    console.log('刘亦菲');
+    console.log(mapStateToProps);
+    console.log(mapDispatchToProps);
     return class ConnectCompnent extends React.Component {
         //  这一步为了获取从外部传入的store
         static contextTypes = {
@@ -40,14 +43,18 @@ export const connect = (mapStateToProps = state => state, mapDispatchToProps = {
             // 当数据有所改动的时候 同样调用update方法
             console.log(this.context)
             console.log(this.context.store);
-            const {store} = this.context
+            const { store } = this.context
+            // () => this.update() 作为参数传递   redux中dispatch的时候 最后执行一下这个
+            // fn(){
+            //   return this.update()
+            //  }()
             store.subscribe(() => this.update())
             this.update()
         }
 
         update() {
             //  context中  包含从provieder组件里面 传递的store
-            const {store} = this.context;
+            const { store } = this.context;
             //  这个mapStateToProps 本身就是一个箭头函数
             const stateProps = mapStateToProps(store.getState());
             /*
@@ -73,7 +80,7 @@ export const connect = (mapStateToProps = state => state, mapDispatchToProps = {
         }
 
         render() {
-            return <WrapComponent {...this.state.props}></WrapComponent>
+            return <WrapComponent { ...this.state.props } > </WrapComponent>
         }
     }
 
@@ -86,7 +93,7 @@ export class Provider extends React.Component {
     }
 
     getChildContext() {
-        return {store: this.store}
+        return { store: this.store }
     }
 
     constructor(props, context) {

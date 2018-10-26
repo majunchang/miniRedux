@@ -31,5 +31,5 @@ export function addGunAsync () {
 }
 
 export function addMore () {
-  return [{ type: ADD_GUN }, { type: ADD_GUN }, addGunAsync()]
+  return [{ type: ADD_GUN }, addGunAsync()]
 }
